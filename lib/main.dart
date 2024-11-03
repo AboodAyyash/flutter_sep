@@ -33,12 +33,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  int counter = 0;
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
+
+  String s1 = "Hello";
 
   @override
   Widget build(BuildContext context) {
@@ -48,23 +50,131 @@ class _MyHomePageState extends State<MyHomePage> {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              if (counter == 0) {
+                return;
+              }
+              setState(() {
+                counter--;
+              });
+            },
+            icon: Icon(Icons.remove),
+          ),
+          Text(
+            counter.toString(),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.amber),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                counter++;
+              });
+            },
+            icon: Icon(Icons.add),
+          ),
+
+          /*  IconButton(
+            onPressed: () {
+              setState(() {
+                print(s1);
+                if (s1 == "Hello")
+                  s1 = "Hi";
+                else
+                  s1 = "Hello";
+                print(s1);
+              });
+            },
             icon: Icon(Icons.settings),
           ),
-          Text("Hello"),
+          InkWell(
+            onLongPress: () {
+              print("Click Long");
+            },
+            onTap: () {
+              print("Click");
+            },
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.red,
+              width: 60,
+              child: Text(
+                s1,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber
+                ),
+              ),
+            ),
+          ), */
+
+          /*   InkResponse(
+            
+            onTap: () {
+              print("Click");
+            },
+            child: Text("Hello"),
+          ), */
+
+          /*  GestureDetector(
+
+            onTap: () {
+              print("Click");
+            },
+            child: Text("Hello"),
+          ), */
         ],
         title: Text("Home Page"),
       ),
-      body: Center(
+      body: Container(
+        color: Colors.blue,
+        width: 400,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(5),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white,
+                    width: 5,
+                  ),
+                ),
+              ),
+              child: Text("Hello"),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Container(
+              color: Colors.amber,
+              child: Text("Hello"),
+            ),
+            Container(
+              color: Colors.green,
+              child: Text("Hello"),
+            ),
+            Container(
+              color: Colors.yellowAccent,
+              child: Text("Hello"),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  color: Colors.amber,
+                  child: Text("Hello"),
+                ),
+                Container(
+                  color: Colors.green,
+                  child: Text("Hello"),
+                ),
+                Container(
+                  color: Colors.yellowAccent,
+                  child: Text("Hello"),
+                ),
+              ],
             ),
           ],
         ),
