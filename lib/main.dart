@@ -32,15 +32,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  int counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  String s1 = "Hello";
+  String result = '';
+  String num1 = '';
+  String num2 = '';
+  String op = '';
+  String display = '';
 
   @override
   Widget build(BuildContext context) {
@@ -48,145 +44,210 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         centerTitle: true,
         foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: () {
-              if (counter == 0) {
-                return;
-              }
-              setState(() {
-                counter--;
-              });
-            },
-            icon: Icon(Icons.remove),
-          ),
-          Text(
-            counter.toString(),
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.amber),
-          ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                counter++;
-              });
-            },
-            icon: Icon(Icons.add),
-          ),
-
-          /*  IconButton(
-            onPressed: () {
-              setState(() {
-                print(s1);
-                if (s1 == "Hello")
-                  s1 = "Hi";
-                else
-                  s1 = "Hello";
-                print(s1);
-              });
-            },
-            icon: Icon(Icons.settings),
-          ),
-          InkWell(
-            onLongPress: () {
-              print("Click Long");
-            },
-            onTap: () {
-              print("Click");
-            },
-            child: Container(
-              alignment: Alignment.center,
-              color: Colors.red,
-              width: 60,
-              child: Text(
-                s1,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber
-                ),
-              ),
-            ),
-          ), */
-
-          /*   InkResponse(
-            
-            onTap: () {
-              print("Click");
-            },
-            child: Text("Hello"),
-          ), */
-
-          /*  GestureDetector(
-
-            onTap: () {
-              print("Click");
-            },
-            child: Text("Hello"),
-          ), */
-        ],
+        actions: [],
         title: Text("Home Page"),
       ),
-      body: Container(
-        color: Colors.blue,
-        width: 400,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(5),
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.white,
-                    width: 5,
-                  ),
+      body: ListView(
+        /*  Column(
+        mainAxisAlignment: MainAxisAlignment.end, */
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Text(
+                  "$display",
+                  style: TextStyle(fontSize: 40),
                 ),
               ),
-              child: Text("Hello"),
-            ),
-            Container(
-              color: Colors.amber,
-              child: Text("Hello"),
-            ),
-            Container(
-              color: Colors.green,
-              child: Text("Hello"),
-            ),
-            Container(
-              color: Colors.yellowAccent,
-              child: Text("Hello"),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              button(title: '1'),
+              button(title: '2'),
+              button(title: '3'),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              button(title: '4'),
+              button(title: '5'),
+              button(title: '6'),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              button(title: '7'),
+              button(title: '8'),
+              button(title: '9'),
+              button(title: '0'),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+            ],
+          ),
+
+          // Calculator end
+          Wrap(
+            children: [
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+            ],
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: [
-                Container(
-                  color: Colors.amber,
-                  child: Text("Hello"),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+              ],
+            ),
+          ),
+
+          Container(
+            height: 100,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    color: Colors.black,
+                  ),
                 ),
-                Container(
-                  color: Colors.green,
-                  child: Text("Hello"),
-                ),
-                Container(
-                  color: Colors.yellowAccent,
-                  child: Text("Hello"),
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    color: Colors.blue,
+                  ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+          Container(
+            height: 100,
+            child: ListView(
+              children: [
+                button(title: '+'),
+                button(title: '='),
+                button(title: '-'),
+                button(title: '+'),
+                button(title: '='),
+              ],
+            ),
+          ),
+          ListView(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              button(title: '+'),
+              button(title: '='),
+              button(title: '-'),
+              button(title: '+'),
+              button(title: '='),
+            ],
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: Container(
-        height: 60,
-        color: Colors.red,
+    );
+  }
+
+  void clear() {
+    result = '';
+    display = '';
+    num1 = '';
+    num2 = '';
+    op = '';
+  }
+
+  Widget button({title}) {
+    return TextButton(
+      onPressed: () {
+        if (result != '' && (title != '+' || title != '-' || title != '=')) {
+          clear();
+        }
+        if (title == '=') {
+          if (op == '') {
+            return;
+          }
+          if (num1 == '') {
+            clear();
+            return;
+          }
+          if (op == "+") {
+            result = (int.parse(num1) + int.parse(num2)).toString();
+          } else {
+            result = (int.parse(num1) - int.parse(num2)).toString();
+          }
+          setState(() {
+            display = result;
+          });
+        } else if (title == '+' || title == "-") {
+          op = title;
+        } else {
+          if (op == '') {
+            num1 += title;
+
+            setState(() {
+              display = num1;
+            });
+          } else if (op != '' && title != '=') {
+            num2 += title;
+            setState(() {
+              display = num2;
+            });
+          }
+        }
+      },
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 30),
       ),
     );
   }
