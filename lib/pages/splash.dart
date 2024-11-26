@@ -52,6 +52,7 @@ class _SpalshPageState extends State<SpalshPage> {
     // TODO: implement initState
     super.initState();
     checkUserId();
+    
   }
 
   @override

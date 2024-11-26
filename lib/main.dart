@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_sep/pages/splash.dart';
+import 'package:flutter_sep/pages/test.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  var delegate = await LocalizationDelegate.create(
+      fallbackLocale: 'en', supportedLocales: ['en', 'ar']);
+  runApp(LocalizedApp(delegate, const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,17 +16,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Sep',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.deepPurple,
-        ),
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+    return LocalizationProvider(
+      state: LocalizationProvider.of(context).state,
+      child: MaterialApp(
+        title: 'Flutter Sep',
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          localizationDelegate,
+        ],
+        locale: Locale("en"),
+        supportedLocales: localizationDelegate.supportedLocales,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+            appBarTheme: AppBarTheme(
+              backgroundColor: Colors.deepPurple,
+            ),
+            textTheme: GoogleFonts.aboretoTextTheme(Theme.of(context).textTheme)),
+        home: const TestPage(),
       ),
-      home: const SpalshPage(),
     );
   }
 }

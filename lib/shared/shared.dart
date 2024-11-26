@@ -21,3 +21,5 @@ List<Map> usersData = [
     'password': "Password@123"
   },
 ];
+
+String locale = 'en';
