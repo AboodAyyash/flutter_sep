@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sep/pages/home.dart';
 import 'package:flutter_sep/pages/profile.dart';
 import 'package:flutter_sep/pages/signup.dart';
 import 'package:flutter_sep/shared/shared.dart';
@@ -13,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  Map userData = {};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushReplacement<void, void>(
                               context,
                               MaterialPageRoute<void>(
-                                builder: (BuildContext context) => ProfilePage(
-                                  userData: userData,
-                                ),
+                                builder: (BuildContext context) => HomePage(),
                               ),
                             );
                             break;

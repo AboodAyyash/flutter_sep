@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sep/main.dart';
 import 'package:flutter_sep/pages/login.dart';
+import 'package:flutter_sep/shared/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget {
-  final Map? userData;
-  const ProfilePage({
-    this.userData,
-  });
+  const ProfilePage();
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +15,19 @@ class ProfilePage extends StatelessWidget {
         children: [
           ListTile(
             title: Text("Name"),
-            subtitle: Text(userData!['userName']),
+            subtitle: Text(userData['userName']),
           ),
           ListTile(
             title: Text("Age"),
-            subtitle: Text(userData!['age']),
+            subtitle: Text(userData['age']),
           ),
           ListTile(
             title: Text("Email"),
-            subtitle: Text(userData!['email']),
+            subtitle: Text(userData['email']),
           ),
           ListTile(
             title: Text("Password"),
-            subtitle: Text(userData!['password']),
+            subtitle: Text(userData['password']),
           ),
           ElevatedButton(
             onPressed: () async {

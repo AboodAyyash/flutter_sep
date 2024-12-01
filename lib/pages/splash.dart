@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_sep/pages/home.dart';
 import 'package:flutter_sep/pages/login.dart';
 import 'package:flutter_sep/pages/profile.dart';
 import 'package:flutter_sep/shared/shared.dart';
@@ -29,7 +30,7 @@ class _SpalshPageState extends State<SpalshPage> {
         );
       } else {
         //call From DB
-        Map userData = {};
+
         for (var i = 0; i < usersData.length; i++) {
           if (usersData[i]['id'] == userId) {
             userData = usersData[i];
@@ -40,7 +41,7 @@ class _SpalshPageState extends State<SpalshPage> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => ProfilePage(userData: userData),
+            builder: (BuildContext context) => HomePage(),
           ),
         );
       }
@@ -52,7 +53,6 @@ class _SpalshPageState extends State<SpalshPage> {
     // TODO: implement initState
     super.initState();
     checkUserId();
-    
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_sep/pages/home.dart';
+import 'package:flutter_sep/pages/search.dart';
 import 'package:flutter_sep/pages/splash.dart';
 import 'package:flutter_sep/pages/test.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -34,9 +36,10 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
             appBarTheme: AppBarTheme(
               backgroundColor: Colors.deepPurple,
+              foregroundColor: Colors.white,
             ),
-            textTheme: GoogleFonts.aboretoTextTheme(Theme.of(context).textTheme)),
-        home: const TestPage(),
+            textTheme: GoogleFonts.abelTextTheme(Theme.of(context).textTheme)),
+        home: const SpalshPage(),
       ),
     );
   }

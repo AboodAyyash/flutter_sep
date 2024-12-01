@@ -23,3 +23,4 @@ List<Map> usersData = [
 ];
 
 String locale = 'en';
+Map userData = {};
