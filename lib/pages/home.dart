@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_sep/models/person.dart';
+import 'package:flutter_sep/pages/chat.dart';
 import 'package:flutter_sep/pages/profile.dart';
 import 'package:flutter_sep/pages/search.dart';
 import 'package:flutter_sep/shared/shared.dart';
@@ -12,18 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Person> freinds = [
-    Person(
-        name: "Ahmad", image: "assets/images/image.jpg", lastMessage: "Hello"),
-    Person(
-        name: "Omar", image: "assets/images/image.jpg", lastMessage: "9:00 AM"),
-    Person(
-        name: "Khaled", image: "assets/images/image.jpg", lastMessage: "Hi!"),
-    Person(
-        name: "Abeer",
-        image: "assets/images/image.jpg",
-        lastMessage: "Hello Hello"),
-  ];
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +37,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push<void>(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => ProfilePage(
-                  
-                  ),
+                  builder: (BuildContext context) => ProfilePage(),
                 ),
               );
             },
@@ -89,14 +78,16 @@ class _HomePageState extends State<HomePage> {
           person.image,
         ),
       ),
+      onTap: () {
+        Navigator.push<void>(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => ChatPage(
+              friend: person,
+            ),
+          ),
+        );
+      },
     );
   }
-}
-
-class Person {
-  String name;
-  String lastMessage;
-  String image;
-
-  Person({required this.name, required this.image, required this.lastMessage});
 }
