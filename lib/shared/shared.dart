@@ -1,4 +1,4 @@
-import 'package:flutter_sep/models/message.dart';
+import 'dart:async';
 import 'package:flutter_sep/models/person.dart';
 
 List<Map> usersData = [
@@ -39,19 +39,26 @@ List<Person> freinds = [
       lastMessage: "Hello Hello"),
 ];
 
-List messages =
-    []; //need new model //msg, sender name, reciver name, time, type, image, color, isFreindMsg
+List messages = [];
 
 String locale = 'en';
 Map userData = {};
 
-List allUsers = []; //need new model //name, image, isFreind, email, sendRequest
+List allUsers = [];
 
-List freindsRequest =
-    []; //need new model  //name ,isAccepted, isRejected, email, image,
+List freindsRequest = [];
 
-
-//reDesigen for Message bubble in chat page
+var streamChatController  = StreamController.broadcast();
 
 
-//show image message and edit model 
+
+
+/* Future futureMethod() async {
+  return "";
+}
+
+var source;
+Stream streamMethod() {
+  return source;
+}
+ */

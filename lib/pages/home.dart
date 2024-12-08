@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_sep/controller/home.dart' as homeController;
 import 'package:flutter_sep/models/person.dart';
 import 'package:flutter_sep/pages/chat.dart';
 import 'package:flutter_sep/pages/profile.dart';
@@ -14,7 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
- 
+  List<Person> searchList = [];
+  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,17 +52,29 @@ class _HomePageState extends State<HomePage> {
           Container(
             margin: const EdgeInsets.all(10),
             child: TextField(
-              decoration: InputDecoration(
+              controller: textEditingController,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: "Search",
                   hintText: "Text Here"),
+              onChanged: (value) {
+                setState(() {
+                  searchList = homeController.search(value);
+                });
+              },
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: freinds.length,
+              itemCount:
+                  searchList.isNotEmpty || textEditingController.text.isNotEmpty
+                      ? searchList.length
+                      : freinds.length,
               itemBuilder: (context, index) {
-                return freindTile(freinds[index]);
+                return freindTile(searchList.isNotEmpty ||
+                        textEditingController.text.isNotEmpty
+                    ? searchList[index]
+                    : freinds[index]);
               },
             ),
           ),
