@@ -1,11 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_sep/controller/home.dart' as homeController;
-import 'package:flutter_sep/models/person.dart';
-import 'package:flutter_sep/pages/chat.dart';
-import 'package:flutter_sep/pages/profile.dart';
-import 'package:flutter_sep/pages/search.dart';
-import 'package:flutter_sep/shared/shared.dart';
+import 'package:notes_app/controller/Home.dart';
+import 'package:notes_app/models/note.dart';
+import 'package:notes_app/pages/add_note.dart';
+import 'package:notes_app/shared/data.dart';
+import 'package:notes_app/widgets/note_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,93 +15,133 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Person> searchList = [];
-  TextEditingController textEditingController = TextEditingController();
+  bool isSearch = false;
+  List notess = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home Page"),
+        title: isSearch
+            ? TextField(
+                cursorColor: Colors.white,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+                onChanged: (value) {
+                  notesSearchList = searchInNotes(value);
+
+                  setState(() {
+                    notesSearchList;
+                  });
+                },
+              )
+            : Text(
+                'Notes',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push<void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => SearchPage(),
-                ),
-              );
+              setState(() {
+                isSearch = !isSearch;
+              });
             },
-            icon: Icon(Icons.person_add),
+            style: IconButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 59, 59, 59),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            icon: Icon(isSearch ? Icons.search_off : Icons.search),
           ),
-          IconButton(
-            onPressed: () {
-              Navigator.push<void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => ProfilePage(),
-                ),
-              );
-            },
-            icon: Icon(Icons.settings),
-          ),
+          SizedBox(width: 20),
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: TextField(
-              controller: textEditingController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Search",
-                  hintText: "Text Here"),
-              onChanged: (value) {
-                setState(() {
-                  searchList = homeController.search(value);
-                });
-              },
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var newNote = await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddNote(),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount:
-                  searchList.isNotEmpty || textEditingController.text.isNotEmpty
-                      ? searchList.length
-                      : freinds.length,
-              itemBuilder: (context, index) {
-                return freindTile(searchList.isNotEmpty ||
-                        textEditingController.text.isNotEmpty
-                    ? searchList[index]
-                    : freinds[index]);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+          );
+          newNote = {
+            'title': titleController.text,
+            'content': contentController.text,
+          };
+          print(newNote);
 
-  Widget freindTile(Person person) {
-    return ListTile(
-      title: Text(person.name),
-      subtitle: Text(person.lastMessage),
-      leading: CircleAvatar(
-        backgroundImage: AssetImage(
-          person.image,
+          titleController.clear();
+          contentController.clear();
+          notess.add(newNote);
+          print(notess.length);
+        },
+        backgroundColor: Color.fromARGB(100, 37, 37, 37),
+        shape: CircleBorder(),
+        foregroundColor: Colors.white,
+        elevation: 2,
+        highlightElevation: 2,
+        splashColor: Colors.transparent,
+        child: Icon(
+          Icons.add,
+          size: 40,
         ),
       ),
-      onTap: () {
-        Navigator.push<void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => ChatPage(
-              friend: person,
+      body: notesSearchList.isNotEmpty || isSearch
+          ? ListView.builder(
+              itemCount: notesSearchList.length,
+              itemBuilder: (context, index) {
+                return NoteCard(
+                  note: notesSearchList[index],
+                );
+              },
+            )
+          : StreamBuilder(
+              stream: streamNoteController.stream,
+              builder: (context, snapshot) {
+                return notes.isEmpty
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(image: AssetImage('assets/images/image.jpg')),
+                          Text(
+                            'Create your first note !',
+                            style: TextStyle(
+                              color: Color.fromARGB(100, 255, 255, 255),
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                      )
+                    : ListView.builder(
+                        itemCount: notes.length,
+                        itemBuilder: (context, index) {
+                          return Dismissible(
+                            key: Key(notes[index].id),
+                            onDismissed: (direction) {
+                              removeNote(context, notes[index]);
+                              log('${notes.length}');
+                            },
+                            background: Container(
+                              color: Colors.red,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            child: NoteCard(
+                              note: notes[index],
+                            ),
+                          );
+                        },
+                      );
+              },
             ),
-          ),
-        );
-      },
     );
   }
 }
