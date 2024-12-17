@@ -3,18 +3,19 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:notes_app/models/note.dart';
 import 'package:notes_app/shared/data.dart';
+import 'package:uuid/uuid.dart';
 
 void saveNote() {
   notes.add(
     Note(
       title: titleController.text,
       content: contentController.text,
-      color: randomColor(),
+      id: getUUid(),
+      /* color: , */
     ),
   );
 
   streamNoteController.sink.add(notes);
-
 }
 
 void updateNote(Note note) {
@@ -72,4 +73,8 @@ SnackBar showSnackBar({
     backgroundColor: Colors.transparent,
     elevation: 0,
   );
+}
+
+getUUid() {
+  return Uuid();
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/models/note.dart';
 import 'package:notes_app/pages/add_note.dart';
+import 'package:notes_app/shared/data.dart';
 
 class NoteCard extends StatelessWidget {
   const NoteCard({
@@ -11,10 +12,9 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       margin: EdgeInsets.all(20),
-      color: note.color,
+      color: randomColor(),
       child: ListTile(
         splashColor: Colors.transparent,
         title: Center(
@@ -23,10 +23,7 @@ class NoteCard extends StatelessWidget {
             child: Text(
               note.title,
               textAlign: TextAlign.left,
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-               fontSize: 25
-              ),
+              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
             ),
           ),
         ),

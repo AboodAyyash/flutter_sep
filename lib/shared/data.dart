@@ -8,7 +8,8 @@ List<Note> notes = [
   Note(
       title: 'UI concepts worth exsisting',
       content: 'Course',
-      color: Colors.white)
+      id: "1"
+     /*  color: Colors.white */)
 ];
 List<Note> notesSearchList = [];
 var streamNoteController = StreamController.broadcast();

@@ -17,6 +17,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isSearch = false;
   List notess = [];
+
+  Note newNote = Note(title: "title", content: "content", id: "id");
+
+  Map<String, dynamic> mapNote = {
+    'id': 'id2',
+    'title': 'title2',
+    'content': 'content2'
+  };
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Map noteMap = newNote.toMap();
+    print(newNote);
+    print(noteMap);
+    Note newMApNote = Note.fromMap(mapNote);
+    print(mapNote);
+    print(newMApNote);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +108,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(
           Icons.add,
           size: 40,
+          /*    color: Color(0xFFfffff), */
         ),
       ),
       body: notesSearchList.isNotEmpty || isSearch
